@@ -5,9 +5,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        @media only screen and (min-width: 768px) {
+            .form {
+                width:40%;
+                margin-left: auto;
+                margin-right: auto;
+                display: block
+            }
+        }
+
+        @media only screen and (min-width: 600px) {
+            .form {
+                width:60%;
+                margin-left: auto;
+                margin-right: auto;
+                display: block
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <form class="text-center border border-light p-5" action='/noten' method="post">
+    <form class="text-center border border-light p-5 form" action='/noten' method="post">
         <p class="h4 mb-4">Login</p>
         <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username" name="user">
         <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" name="passwort">
