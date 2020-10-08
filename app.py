@@ -65,7 +65,6 @@ def noten():
         return redirect('/')
 
     ssid = soup.a['href'][49:]
-    print(ssid)
 
     noten = requests.get("https://ods.fh-dortmund.de/ods?Sicht=ExcS&ExcSicht=Notenspiegel&m=1&SIDD=" + ssid)
     soup = BeautifulSoup(noten.text, 'lxml')
@@ -85,12 +84,10 @@ def noten():
         note = float(note)
         cp = float(tr.select_one('td:nth-of-type(7)').text.strip().replace(',', '.'))
         klausur = Klausur(name, cp, note)
-        if klausur.note != 0.0 | klausur.creditPoints != 0.0:
+        if (klausur.note != 0.0) | (klausur.creditPoints != 0.0):
             klausurListe.append(klausur)
 
     klausurListe = KlausrListe(klausurListe)
-    print(klausurListe.average)
-    print(klausurListe.credits)
     return render_template('noten.html', klausurListe=klausurListe)
 
 
