@@ -2,6 +2,41 @@ from flask import Flask, render_template, request, redirect
 from bs4 import BeautifulSoup
 from pip._vendor import requests
 
+class Klausur:
+    def __init__(self, name, creditPoints, note):
+        self.name = name
+        self.creditPoints = creditPoints
+        self.note = note
+
+    def __repr__(self):
+        return str(self.name) + ", " + str(self.creditPoints) + ", " + str(self.note)
+
+
+class KlausrListe:
+    def __init__(self, liste):
+        self.liste = liste
+        self.average = self.avg()
+        self.credits = self.sum()
+
+    def sum(self):
+        sum = 0
+        for klausur in self.liste:
+            sum = sum + klausur.creditPoints
+        return sum
+
+    def sumOnlyGraded(self):
+        sum = 0
+        for klausur in self.liste:
+            if klausur.note != 0:
+                sum = sum + klausur.creditPoints
+        return sum
+
+    def avg(self):
+        avg = 0
+        for klausur in self.liste:
+            avg = avg + klausur.creditPoints * klausur.note
+        return int((avg / self.sumOnlyGraded()) * 10)/10
+
 app = Flask(__name__)
 
 
@@ -60,32 +95,3 @@ def noten():
 
 if __name__ == '__main__':
     app.run()
-
-
-class Klausur:
-    def __init__(self, name, creditPoints, note):
-        self.name = name
-        self.creditPoints = creditPoints
-        self.note = note
-
-    def __repr__(self):
-        return str(self.name) + ", " + str(self.creditPoints) + ", " + str(self.note)
-
-
-class KlausrListe:
-    def __init__(self, liste):
-        self.liste = liste
-        self.average = self.avg()
-        self.credits = self.sum()
-
-    def sum(self):
-        sum = 0
-        for klausur in self.liste:
-            sum = sum + klausur.creditPoints
-        return sum
-
-    def avg(self):
-        sum = 0
-        for klausur in self.liste:
-            sum = sum + klausur.creditPoints * klausur.note
-        return round((sum / self.sum()) * 100) / 100
