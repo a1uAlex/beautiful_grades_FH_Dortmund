@@ -85,7 +85,8 @@ def noten():
         note = float(note)
         cp = float(tr.select_one('td:nth-of-type(7)').text.strip().replace(',', '.'))
         klausur = Klausur(name, cp, note)
-        klausurListe.append(klausur)
+        if klausur.note != 0.0 | klausur.creditPoints != 0.0:
+            klausurListe.append(klausur)
 
     klausurListe = KlausrListe(klausurListe)
     print(klausurListe.average)
